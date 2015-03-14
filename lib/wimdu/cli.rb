@@ -88,6 +88,8 @@ module Wimdu
           puts property.errors.full_messages
         end
       end
+
+      say "Great job! Listing #{property.slug} is complete!"
     end
   end
 end

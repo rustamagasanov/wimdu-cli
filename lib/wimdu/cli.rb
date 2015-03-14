@@ -23,12 +23,9 @@ module Wimdu
 
       say "Starting with new property #{slug}."
 
-      ask_for(property, :title)
-      ask_for(property, :address)
-      ask_for(property, :rate)
-      ask_for(property, :max_guests)
-      ask_for(property, :email)
-      ask_for(property, :phone)
+      property.remaining_fields.each do |field|
+        ask_for(property, field)
+      end
 
       say "Great job! Listing #{property.slug} is complete!"
     end

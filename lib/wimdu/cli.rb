@@ -22,11 +22,7 @@ module Wimdu
       property = Property.create(slug: slug)
 
       say "Starting with new property #{slug}."
-
-      property.remaining_fields.each do |field|
-        ask_for(property, field)
-      end
-
+      property.remaining_fields.each { |field| ask_for(property, field) }
       say "Great job! Listing #{property.slug} is complete!"
     end
 
@@ -34,15 +30,16 @@ module Wimdu
     def continue(slug)
       property = Property.find_by(slug: slug)
 
-      remaining_fields = property.remaining_fields
+      if property.nil?
+        say "Such property doesn't exist"
+        return
+      end
 
+      remaining_fields = property.remaining_fields
       if remaining_fields.empty?
         say 'This property is already completed.'
       else
-        remaining_fields.each do |field|
-          ask_for(property, field)
-        end
-
+        remaining_fields.each { |field| ask_for(property, field) }
         say "Great job! Listing #{property.slug} is complete!"
       end
     end

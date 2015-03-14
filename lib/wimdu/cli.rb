@@ -32,5 +32,22 @@ module Wimdu
 
       say "Great job! Listing #{property.slug} is complete!"
     end
+
+    desc 'continue', 'Continues property creation'
+    def continue(slug)
+      property = Property.find_by(slug: slug)
+
+      remaining_fields = property.remaining_fields
+
+      if remaining_fields.empty?
+        say 'This property is already completed.'
+      else
+        remaining_fields.each do |field|
+          ask_for(property, field)
+        end
+
+        say "Great job! Listing #{property.slug} is complete!"
+      end
+    end
   end
 end

@@ -13,6 +13,20 @@ class Property < ActiveRecord::Base
     @awaits == attr
   end
 
+  def remaining_fields
+    attributes = self.attributes.keys.map(&:to_sym)
+    from = case
+    when title.nil?; 2
+    when address.nil?; 3
+    when rate.nil?; 4
+    when max_guests.nil?; 5
+    when email.nil?; 6
+    when phone.nil?; 7
+    else; return []
+    end
+    attributes[from..-1]
+  end
+
   class << self
     def offers
       where.not(slug: nil, title: nil, address: nil,

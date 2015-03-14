@@ -12,4 +12,11 @@ class Property < ActiveRecord::Base
   def awaits?(attr)
     @awaits == attr
   end
+
+  class << self
+    def offers
+      where.not(slug: nil, title: nil, address: nil,
+        rate: nil, max_guests: nil, email: nil, phone: nil)
+    end
+  end
 end

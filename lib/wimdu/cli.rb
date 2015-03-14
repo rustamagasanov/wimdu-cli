@@ -4,7 +4,16 @@ module Wimdu
 
     desc 'list', 'Lists existing properties'
     def list
-      say 'No properties found.'
+      offers = Property.offers
+      if offers.empty?
+        say 'No properties found.'
+      else
+        say "Found #{offers.count} offer(s):"
+        say
+        offers.each do |offer|
+          say "#{offer.slug}: #{offer.title}"
+        end
+      end
     end
 
     desc 'new', 'Creates new properties'
